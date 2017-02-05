@@ -58,6 +58,10 @@ for x in model_data['styles']:
 
 style = model_data['styles'][0] # chose one randomly
 print(style)
+for k,v in style.items():
+    if isinstance(v, dict):
+        v = {str(x).encode('utf-8'): str(y).encode('utf-8') for x,y in v.items()}
+    print "{0}: {1}".format(k,v)
 styleid = style['id']
 zip_code = '02143'
 

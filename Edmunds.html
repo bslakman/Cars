@@ -11924,13 +11924,16 @@ SE 4dr Sedan (2.0L 4cyl 5M)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[117]:</div>
+<div class="prompt input_prompt">In&nbsp;[143]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">style</span> <span class="o">=</span> <span class="n">model_data</span><span class="p">[</span><span class="s1">&#39;styles&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># chose one randomly</span>
-<span class="k">print</span><span class="p">(</span><span class="n">style</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">style</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">):</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="k">print</span> <span class="s2">&quot;{0}: {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
 <span class="n">styleid</span> <span class="o">=</span> <span class="n">style</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
-<span class="n">zip_code</span> <span class="o">=</span> <span class="s1">&#39;02143&#39;</span>
+<span class="n">zip_code</span> <span class="o">=</span> <span class="s1">&#39;33076&#39;</span>
 </pre></div>
 
 </div>
@@ -11943,7 +11946,13 @@ SE 4dr Sedan (2.0L 4cyl 5M)
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{u&#39;trim&#39;: u&#39;Titanium&#39;, u&#39;name&#39;: u&#39;Titanium 4dr Sedan (2.0L 4cyl 6AM)&#39;, u&#39;make&#39;: {u&#39;id&#39;: 200005143, u&#39;niceName&#39;: u&#39;ford&#39;, u&#39;name&#39;: u&#39;Ford&#39;}, u&#39;id&#39;: 101364704, u&#39;year&#39;: {u&#39;id&#39;: 100531217, u&#39;year&#39;: 2012}, u&#39;model&#39;: {u&#39;id&#39;: u&#39;Ford_Focus&#39;, u&#39;niceName&#39;: u&#39;focus&#39;, u&#39;name&#39;: u&#39;Focus&#39;}, u&#39;submodel&#39;: {u&#39;body&#39;: u&#39;Sedan&#39;, u&#39;modelName&#39;: u&#39;Focus Sedan&#39;, u&#39;niceName&#39;: u&#39;sedan&#39;}}
+<pre>trim: Titanium
+name: Titanium 4dr Sedan (2.0L 4cyl 6AM)
+make: {&#39;id&#39;: &#39;200005143&#39;, &#39;niceName&#39;: &#39;ford&#39;, &#39;name&#39;: &#39;Ford&#39;}
+id: 101364704
+year: {&#39;id&#39;: &#39;100531217&#39;, &#39;year&#39;: &#39;2012&#39;}
+model: {&#39;id&#39;: &#39;Ford_Focus&#39;, &#39;niceName&#39;: &#39;focus&#39;, &#39;name&#39;: &#39;Focus&#39;}
+submodel: {&#39;body&#39;: &#39;Sedan&#39;, &#39;modelName&#39;: &#39;Focus Sedan&#39;, &#39;niceName&#39;: &#39;sedan&#39;}
 </pre>
 </div>
 </div>
@@ -11954,7 +11963,7 @@ SE 4dr Sedan (2.0L 4cyl 5M)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[118]:</div>
+<div class="prompt input_prompt">In&nbsp;[144]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;styleid&#39;</span><span class="p">:</span> <span class="n">styleid</span><span class="p">,</span> <span class="s1">&#39;zip&#39;</span><span class="p">:</span> <span class="n">zip_code</span><span class="p">,</span> <span class="s1">&#39;fmt&#39;</span> <span class="p">:</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="s1">&#39;api_key&#39;</span><span class="p">:</span> <span class="n">key</span><span class="p">}</span>
@@ -11969,7 +11978,7 @@ SE 4dr Sedan (2.0L 4cyl 5M)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[119]:</div>
+<div class="prompt input_prompt">In&nbsp;[145]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">typical_data</span><span class="p">[</span><span class="s1">&#39;tmv&#39;</span><span class="p">][</span><span class="s1">&#39;totalWithOptions&#39;</span><span class="p">][</span><span class="s1">&#39;usedPrivateParty&#39;</span><span class="p">])</span>
@@ -11987,8 +11996,8 @@ SE 4dr Sedan (2.0L 4cyl 5M)
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>8477.0
-6734.0
+<pre>8433.0
+6699.0
 9960.904999999999
 </pre>
 </div>
