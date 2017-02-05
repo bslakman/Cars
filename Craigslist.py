@@ -158,7 +158,7 @@ df['price'] = df['price'].str[1:].astype(int)
 df
 
 
-# In[566]:
+# In[573]:
 
 sns.set_style("ticks")
 fig = plt.figure(figsize=(6,4))
@@ -166,11 +166,13 @@ ax1 = fig.add_subplot(111)
 ax1.set_xlabel('Year')
 ax1.set_ylabel('Price($)')
 ax1.set_title('Price vs Mileage and Year for Used Honda Civics, 2000-2016', y= 1.2)
-plt.plot(df['year'], df['price'], '.', ms=10)
+plt.plot(df['year'], df['price'], '.', ms=10, label='year')
 ax1.set_xbound(lower=1999, upper=2017)
+ax1.legend(loc='best')
 ax2 = ax1.twiny()
 ax2.set_xlabel('Mileage')
-plt.plot(df['mileage'], df['price'], 'g*', ms=10)
+plt.plot(df['mileage'], df['price'], 'g*', ms=10, label='mileage')
+ax2.legend(loc=2)
 plt.tight_layout()
 plt.savefig('price_year_mileage.pdf')
 
