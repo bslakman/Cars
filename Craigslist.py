@@ -145,9 +145,9 @@ df['region'] = df['link'].str[1:4]
 df
 
 
-# In[472]:
+# In[551]:
 
-import seaborn
+import seaborn as sns
 import matplotlib.pyplot as plt
 get_ipython().magic(u'matplotlib inline')
 
@@ -158,11 +158,21 @@ df['price'] = df['price'].str[1:].astype(int)
 df
 
 
-# In[511]:
+# In[566]:
 
-ax = df.plot('year', ['mileage', 'price'], secondary_y='price', legend=True, style='.', markersize=10, xlim=[1999,2017], title='Mileage and Price vs Year for Used Honda Civics, 2000-2016')
-fig = ax.get_figure()
-fig.savefig('mileage_and_price.pdf')
+sns.set_style("ticks")
+fig = plt.figure(figsize=(6,4))
+ax1 = fig.add_subplot(111)
+ax1.set_xlabel('Year')
+ax1.set_ylabel('Price($)')
+ax1.set_title('Price vs Mileage and Year for Used Honda Civics, 2000-2016', y= 1.2)
+plt.plot(df['year'], df['price'], '.', ms=10)
+ax1.set_xbound(lower=1999, upper=2017)
+ax2 = ax1.twiny()
+ax2.set_xlabel('Mileage')
+plt.plot(df['mileage'], df['price'], 'g*', ms=10)
+plt.tight_layout()
+plt.savefig('price_year_mileage.pdf')
 
 
 # In[475]:
