@@ -182,29 +182,35 @@ plt.savefig('price_year_mileage.pdf')
 plt.plot(df['price'], df['mileage'], linestyle='', marker='.')
 
 
-# In[477]:
+# In[574]:
 
 regions = df.groupby('region').mean()
 
 
-# In[478]:
+# In[575]:
 
 print df.groupby('region').count()
 
 
-# In[493]:
+# In[576]:
 
-regions = regions.append(pd.Series(data={'year': np.mean(df['year']), 'price': np.mean(df['price']), 'mileage': np.mean(df['mileage'])}, name='avg'))
+regions = regions.append(pd.Series(data={'year': np.mean(df['year']), 'price': np.mean(df['price']), 'mileage': np.mean(df['mileage'])}, name='AVERAGE'))
 
 
-# In[494]:
+# In[577]:
 
 regions
 
 
-# In[498]:
+# In[611]:
 
-regions['price'].plot.bar()
+ax = regions['price'].plot.bar(position=0, width=0.3, alpha=0.5, legend=True, title='Average Price and Mileage of Used Honda Civics, by region')
+ax.set_ylabel('Price($)')
+ax = regions['mileage'].plot.bar(secondary_y=True, color='green', position=1, width=0.3, alpha=0.5, legend=True)
+ax.set_ylabel('Mileage')
+sns.despine(top=True, right=False)
+fig=ax.get_figure()
+fig.savefig('price_mileage_region.pdf', bbox_inches='tight')
 
 
 # In[506]:
