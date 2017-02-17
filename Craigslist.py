@@ -1,13 +1,14 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[36]:
 
 import requests
 from bs4 import BeautifulSoup
+import time
 
 
-# In[35]:
+# In[2]:
 
 def fetch(query = None, auto_make_model = None, min_auto_year = None, max_auto_year = None, s=0):
     search_params = {key: val for key, val in locals().items() if val is not None}
