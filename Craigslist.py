@@ -267,48 +267,51 @@ plt.tight_layout()
 plt.savefig('price_year_mileage.pdf')
 
 
-# In[475]:
+# In[ ]:
 
 plt.plot(df['price'], df['mileage'], linestyle='', marker='.')
 
 
-# In[574]:
+# In[263]:
 
-regions = df.groupby('region').mean()
-
-
-# In[575]:
-
-print df.groupby('region').count()
+regions = all_car_info[all_car_info['std_location'] != ''].groupby('std_location').agg(['mean', 'count'])
 
 
-# In[576]:
+# In[264]:
 
-regions = regions.append(pd.Series(data={'year': np.mean(df['year']), 'price': np.mean(df['price']), 'mileage': np.mean(df['mileage'])}, name='AVERAGE'))
-
-
-# In[577]:
-
-regions
+regions = regions[regions['price','count'] >= 50]
+regions = regions[regions['mileage','count'] >= 5]
 
 
-# In[611]:
+# In[265]:
 
-ax = regions['price'].plot.bar(position=0, width=0.3, alpha=0.5, legend=True, title='Average Price and Mileage of Used Honda Civics, by region')
+regions.head()
+
+
+# In[267]:
+
+ax = regions['price','mean'].plot.bar(position=0, width=0.3, alpha=0.5, legend=True)#, title='Average Price and Mileage of Used Honda Civics, by region')
 ax.set_ylabel('Price($)')
-ax = regions['mileage'].plot.bar(secondary_y=True, color='green', position=1, width=0.3, alpha=0.5, legend=True)
+ax = regions['mileage','mean'].plot.bar(secondary_y=True, color='red', position=1, width=0.3, alpha=0.5, legend=True)
 ax.set_ylabel('Mileage')
+#ax.set_ylim(bottom=1990, top=2010)
 sns.despine(top=True, right=False)
 fig=ax.get_figure()
-fig.savefig('price_mileage_region.pdf', bbox_inches='tight')
+#fig.savefig('price_mileage_region.pdf', bbox_inches='tight')
 
 
-# In[506]:
+# In[262]:
+
+all_car_info.loc['/sob/cto/5969062998.html', 'mileage'] = np.nan
+print all_car_info.loc['/sob/cto/5969062998.html']
+
+
+# In[ ]:
 
 from scipy.stats import linregress
 
 
-# In[508]:
+# In[ ]:
 
 print linregress(df['mileage'][~df['price'].isnull()].dropna(), df['price'][~df['mileage'].isnull()].dropna())
 print linregress(df['year'][~df['price'].isnull()].dropna(), df['price'][~df['year'].isnull()].dropna())
