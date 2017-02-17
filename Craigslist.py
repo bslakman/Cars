@@ -38,7 +38,7 @@ def extract_listings(parsed):
         try:
             price_string = price.string.strip()
         except AttributeError:
-            price = ''
+            price_string = ''
         location = listing.find('span', class_='result-hood')
         try:
             loc_string = location.string.strip()[1:-1].split()[0]
