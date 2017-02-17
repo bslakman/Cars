@@ -81,62 +81,176 @@ def get_mileage(description):
         return np.nan
 
 
-# In[458]:
-
-df['mileage'] = df.apply(lambda row: get_mileage(row['description']), axis=1)
-df
-
-
-# In[469]:
+# In[16]:
 
 def get_year(description):
     description = re.split('(20[0-9][0-9])', description)
     if len(description) == 1:
+        description = re.split('(19[0-9][0-9])', description[0])
+    if len(description) == 1:
         description = re.split('([0-1][0-9])', description[0])
+    if len(description) == 1:
+        return np.nan
+    if len(description[1]) == 4: 
+        year = description[1]
+    elif int(description[1]) > 17: 
+        year = '19' + description[1]
+    else: 
+        year = '20' + description[1]
     try:
-        return int(description[1]) if len(description[1]) == 4 else int('20' + description[1])
+        return int(year) if int(year) <= 2017 else np.nan
     except:
         return np.nan
 
 
-# In[470]:
-
-df['year'] = df.apply(lambda row: get_year(row['description']), axis=1)
-df
-
-
-# In[499]:
+# In[24]:
 
 def get_standard_location(location):
     """
     Use first 5 characters of location in order to group. Gets rid of much of the weird stuff
     """
     if len(location) < 5:
-        return location.lower()
+        return re.sub('[^a-z]', '', location.lower())
     else:
-        return location[:5].lower()
-
-df['std_location'] = df.apply(lambda row: get_standard_location(row['location']), axis=1)
-df['region'] = df['link'].str[1:4]
-df
+        return re.sub('[^a-z]', '', location[:5].lower())
 
 
-# In[551]:
+# In[9]:
+
+def get_price(price):
+    try:
+        return int(price[1:]) if int(price[1:]) > 100 else np.nan
+    except:
+        return np.nan
+
+
+# In[111]:
+
+def scrape_all(search_params={}):
+    listings = []
+    base = "http://boston.craigslist.org/search/cto"
+    for i in range(0, 1000, 100):
+        search_params['s'] = i
+        resp = requests.get(base, params=search_params, timeout=3)
+        resp.raise_for_status()
+        with open('sizing.txt', 'a+') as f:
+            f.write(resp.content)
+        f.close()
+        car_results = resp.content, resp.encoding
+        doc = parse(car_results[0])
+        listings.extend(extract_listings(doc))
+        time.sleep(2)
+    
+    df = pd.DataFrame(data=listings)
+    
+    df['mileage'] = df.apply(lambda row: get_mileage(row['description']), axis=1)
+    df['price'] = df.apply(lambda row: get_price(row['price']), axis=1)
+    df['region'] = df['link'].str[1:5]
+    df['year'] = df.apply(lambda row: get_year(row['description']), axis=1)
+    df['std_location'] = df.apply(lambda row: get_standard_location(row['location']), axis=1)
+    df = df.drop_duplicates()
+    
+    return df
+
+
+# In[108]:
+
+all_car_info = scrape_all()
+print len(all_car_info)
+all_car_info = all_car_info.append(scrape_all(search_params={'searchNearby': 1}))
+print len(all_car_info)
+all_car_info = all_car_info.drop_duplicates()
+print len(all_car_info)
+
+
+# In[109]:
+
+all_car_info = all_car_info.append(scrape_all(search_params={'sort': 'pricedsc'}))
+all_car_info = all_car_info.drop_duplicates()
+print len(all_car_info)
+
+
+# In[110]:
+
+all_car_info = all_car_info.append(scrape_all(search_params={'sort': 'priceasc'}))
+all_car_info = all_car_info.drop_duplicates()
+print len(all_car_info)
+
+
+# In[112]:
+
+all_car_info = all_car_info.append(scrape_all(search_params={'auto_transmission': 1}))
+all_car_info = all_car_info.drop_duplicates()
+print len(all_car_info)
+
+
+# In[113]:
+
+all_car_info['std_location'] = all_car_info.apply(lambda row: re.sub('[^a-z]', '', row['std_location']), axis=1)
+all_car_info.head()
+
+
+# In[245]:
+
+all_car_info.set_index('link', inplace=True)
+all_car_info.head()
+
+
+# In[246]:
+
+import pandas_profiling
+pandas_profiling.ProfileReport(all_car_info)
+
+
+# In[248]:
+
+all_car_info.to_csv("all_car_info.csv", encoding='utf-8')
+
+
+# Methods of getting more (older) results:
+# 
+# -include nearby areas (searchNearby=1)
+# 
+# -sort by price (sort=pricedsc or sort=priceasc)
+# 
+# -manual transmission (auto_transmission=1)
+
+# In[249]:
 
 import seaborn as sns
 import matplotlib.pyplot as plt
 get_ipython().magic(u'matplotlib inline')
-
-
-# In[473]:
-
-df['price'] = df['price'].str[1:].astype(int)
-df
-
-
-# In[573]:
-
 sns.set_style("ticks")
+
+
+# In[250]:
+
+all_car_info.plot.scatter('year', 'mileage')
+plt.ylim(0,3E5)
+plt.xlim(1950,)
+
+
+# In[251]:
+
+all_car_info.plot.scatter('mileage', 'price')
+plt.xlim(0,3E5)
+plt.ylim(0,2E5)
+
+
+# In[252]:
+
+all_car_info.plot.scatter('year', 'price')
+plt.ylim(0,2E5)
+plt.xlim(1950,2020)
+
+
+# In[147]:
+
+print all_car_info[all_car_info['price'] >= 150000]
+
+
+# In[ ]:
+
 fig = plt.figure(figsize=(6,4))
 ax1 = fig.add_subplot(111)
 ax1.set_xlabel('Year')
