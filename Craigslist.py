@@ -54,37 +54,13 @@ def extract_listings(parsed):
     return extracted
 
 
-# In[36]:
-
-listings = []
-for i in range(0, 500, 100):
-    car_results = fetch(auto_make_model="honda civic", min_auto_year=2000, max_auto_year=2016, s=i)
-    doc = parse(car_results[0])
-    listings.extend(extract_listings(doc))
-
-
-# In[212]:
-
-print len(listings)
-
-
-# In[17]:
-
-print doc.prettify()
-
-
-# In[430]:
+# In[5]:
 
 import pandas as pd
 import numpy as np
 
 
-# In[457]:
-
-df = pd.DataFrame(data=listings)
-
-
-# In[444]:
+# In[6]:
 
 import re
 
