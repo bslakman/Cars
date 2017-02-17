@@ -20,14 +20,14 @@ def fetch(query = None, auto_make_model = None, min_auto_year = None, max_auto_y
     return resp.content, resp.encoding
 
 
-# In[4]:
+# In[3]:
 
 def parse(html, encoding='utf-8'):
-    parsed = BeautifulSoup(html, from_encoding=encoding)
+    parsed = BeautifulSoup(html, 'lxml', from_encoding=encoding)
     return parsed
 
 
-# In[33]:
+# In[4]:
 
 def extract_listings(parsed):
     listings = parsed.find_all('p', class_='result-info')
