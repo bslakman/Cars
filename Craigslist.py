@@ -290,16 +290,16 @@ regions = regions[regions['mileage','count'] >= 5]
 regions.head()
 
 
-# In[267]:
+# In[269]:
 
-ax = regions['price','mean'].plot.bar(position=0, width=0.3, alpha=0.5, legend=True)#, title='Average Price and Mileage of Used Honda Civics, by region')
+ax = regions['price','mean'].plot.bar(position=0, width=0.3, alpha=0.5, legend=True, title='Average Price and Mileage of Used Cars in Greater Boston, by region')
 ax.set_ylabel('Price($)')
 ax = regions['mileage','mean'].plot.bar(secondary_y=True, color='red', position=1, width=0.3, alpha=0.5, legend=True)
 ax.set_ylabel('Mileage')
 #ax.set_ylim(bottom=1990, top=2010)
 sns.despine(top=True, right=False)
 fig=ax.get_figure()
-#fig.savefig('price_mileage_region.pdf', bbox_inches='tight')
+fig.savefig('price_mileage_region.pdf', bbox_inches='tight')
 
 
 # In[262]:
