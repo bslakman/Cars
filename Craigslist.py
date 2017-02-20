@@ -365,3 +365,56 @@ focus_years
 focus_data[focus_data['year']==2016]
 
 
+# In[356]:
+
+from sklearn import linear_model
+from sklearn.cross_validation import cross_val_score
+from sklearn.model_selection import ShuffleSplit, train_test_split
+
+
+# In[383]:
+
+data = all_car_info[['year', 'mileage', 'price']].dropna()
+data = data[data['price'] < 100000]
+data = data[data['mileage'] < 500000]
+data = data[data['year'] > 1986]
+X = data[['year', 'mileage']]
+y = data['price']
+
+
+# In[398]:
+
+coeff = []
+scores = []
+for i in range(10):
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+    model = linear_model.LinearRegression()
+    model.fit(X_train, y_train)
+    coeff.append(model.coef_)
+    scores.append(model.score(X_test,y_test))
+print "Average score = {0} +/- {1}".format(round(np.mean(scores),3), round(np.std(scores),3))
+
+
+# In[410]:
+
+fig = plt.figure()
+plt.scatter(y_test, model.predict(X_test), label="predicted")
+plt.plot(y_test, y_test, color='black', label="parity")
+plt.title("Linear regression model prediction vs actual.\nprice = f(year, mileage), r = {0} +/- {1}".format(
+    round(np.mean(scores),3), round(np.std(scores),3)))
+plt.xlabel("Price (actual)")
+plt.ylabel("Price (predicted)")
+plt.legend(loc='best')
+plt.tight_layout()
+fig.savefig('regression.pdf')
+
+
+# In[402]:
+
+print model.coef_
+
+
+# In[ ]:
+
+
+
