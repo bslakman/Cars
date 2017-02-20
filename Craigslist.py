@@ -148,7 +148,8 @@ def scrape_all(search_params={}):
     df['price'] = df.apply(lambda row: get_price(row['price']), axis=1)
     df['region'] = df['link'].str[1:5]
     df['year'] = df.apply(lambda row: get_year(row['description']), axis=1)
-    df['std_location'] = df.apply(lambda row: get_standard_location(row['location']), axis=1)
+    df['std_location'] = df.apply(lambda row: re.sub('[^a-z]', '', get_standard_location(row['location'])), axis=1)
+    df.set_index('link', inplace=True)
     df = df.drop_duplicates()
     
     return df
