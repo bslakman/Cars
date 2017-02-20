@@ -290,22 +290,17 @@ regions = regions[regions['mileage','count'] >= 5]
 regions.head()
 
 
-# In[269]:
+# In[430]:
 
-ax = regions['price','mean'].plot.bar(position=0, width=0.3, alpha=0.5, legend=True, title='Average Price and Mileage of Used Cars in Greater Boston, by region')
+regions.sort(columns=[('price', 'mean')], inplace=True)
+ax = regions['price','mean'].plot.bar(position=0, width=0.3, alpha=0.8, legend=True, title='Average Price and Mileage of Used Cars in Greater Boston, by region')
 ax.set_ylabel('Price($)')
 ax = regions['mileage','mean'].plot.bar(secondary_y=True, color='red', position=1, width=0.3, alpha=0.5, legend=True)
 ax.set_ylabel('Mileage')
-#ax.set_ylim(bottom=1990, top=2010)
 sns.despine(top=True, right=False)
 fig=ax.get_figure()
+fig.set_size_inches(10,4)
 fig.savefig('price_mileage_region.pdf', bbox_inches='tight')
-
-
-# In[262]:
-
-all_car_info.loc['/sob/cto/5969062998.html', 'mileage'] = np.nan
-print all_car_info.loc['/sob/cto/5969062998.html']
 
 
 # In[ ]:
