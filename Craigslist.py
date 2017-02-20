@@ -322,5 +322,51 @@ print linregress(df['year'][~df['mileage'].isnull()].dropna(), df['mileage'][~df
 
 # In[ ]:
 
+focus_data = scrape_all(search_params={'auto_make_model': 'ford focus'})
+print len(focus_data)
+focus_data = focus_data.append(scrape_all(search_params={'auto_make_model': 'ford focus', 'searchNearby': 1}))
+print len(focus_data)
+focus_data = focus_data.drop_duplicates()
+print len(focus_data)
+
+
+# In[287]:
+
+focus_data = focus_data.append(scrape_all(search_params={'auto_make_model': 'ford focus', 'sort': 'priceasc'}))
+print len(focus_data)
+focus_data = focus_data.drop_duplicates()
+print len(focus_data)
+
+
+# In[288]:
+
+focus_data = focus_data.append(scrape_all(search_params={'auto_make_model': 'ford focus', 'sort': 'pricedsc'}))
+print len(focus_data)
+focus_data = focus_data.drop_duplicates()
+print len(focus_data)
+
+
+# In[289]:
+
+focus_data = focus_data.append(scrape_all(search_params={'auto_make_model': 'ford focus', 'auto_transmission': 1}))
+print len(focus_data)
+focus_data = focus_data.drop_duplicates()
+print len(focus_data)
+
+
+# In[290]:
+
+focus_data
+
+
+# In[291]:
+
+focus_years = focus_data.groupby('year').agg(['mean', 'count'])
+focus_years
+
+
+# In[293]:
+
+focus_data[focus_data['year']==2016]
 
 
