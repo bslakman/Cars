@@ -40,12 +40,17 @@ print len(ford_models)
 ford_models
 
 
-# In[78]:
+# In[102]:
 
-ford_fiesta_years = pd.DataFrame(data=ford_models.loc['Ford_Fiesta']['years'])
-ford_fiesta_years.set_index('year', inplace=True)
-print len(ford_fiesta_years)
-ford_fiesta_years
+ford_focus_years = pd.DataFrame(data=ford_models.loc['Ford_Focus']['years'])
+ford_focus_years.set_index('year', inplace=True)
+print len(ford_focus_years)
+ford_focus_years
+
+
+# In[96]:
+
+ford_focus_years.index[:-1]
 
 
 # In[79]:
@@ -55,87 +60,88 @@ car_makes.to_csv('car_makes.csv')
 
 # ## Get all the styles for all the years of a particular make/model combination
 
-# In[57]:
+# In[98]:
 
 import time
 makeNiceName = 'ford'
-modelNiceName = 'fiesta'
-fiesta_style_details = []
+modelNiceName = 'focus'
+focus_style_details = []
 parameters = {}
 parameters = {'api_key': key, 'fmt': 'json'}
-for year in ford_fiesta_years.index:
-    fiesta_style_details.append(requests.get("https://api.edmunds.com/api/vehicle/v2/{0}/{1}/{2}/styles".format(makeNiceName,modelNiceName,year), params=parameters))
+for year in ford_focus_years.index[:-1]: # don't include 2017
+    focus_style_details.append(requests.get("https://api.edmunds.com/api/vehicle/v2/{0}/{1}/{2}/styles".format(makeNiceName,modelNiceName,year), params=parameters))
     time.sleep(3)
 
 
-# In[85]:
+# In[124]:
 
-ford_fiesta_years = ford_fiesta_years.loc[2011:2016]
-ford_fiesta_years['styles'] = fiesta_style_details
+ford_focus_years = ford_focus_years.loc[2000:2016]
+ford_focus_years['styles'] = focus_style_details
 
 
-# In[86]:
+# In[125]:
 
-ford_fiesta_years
+ford_focus_years['styles'] = ford_focus_years.apply(lambda row: row['styles'].json(), axis=1)
+
+
+# In[126]:
+
+ford_focus_years
 
 
 # ### Get all the style data for a particular make/model/year
 
-# In[89]:
+# In[136]:
 
-ford_fiesta_styles_2011 = pd.DataFrame(data=ford_fiesta_years.loc[2011]['styles']['styles'])
-ford_fiesta_styles_2011.set_index('id', inplace=True)
-ford_fiesta_styles_2011
-
-
-# In[3]:
-
-make_nice_name = 'kia'
-model_nice_name = 'sportage'
-year = '2012'
-
-
-# In[16]:
-
-parameters = {'fmt': 'json', 'api_key': key}
-model_data = requests.get("https://api.edmunds.com/api/vehicle/v2/{0}/{1}/{2}/styles".format(make_nice_name,model_nice_name,year), params=parameters).json()
-#print(civic_data)
+ford_focus_styles_2016 = pd.DataFrame(data=ford_focus_years.loc[2016]['styles']['styles'])
+ford_focus_styles_2016.set_index('id', inplace=True)
+ford_focus_styles_2016
 
 
 # craigslist price - kelly blue book value = dealer price - what they'll give you for it (percentage). give a range of uncertainties...
 
-# In[116]:
-
-for x in model_data['styles']:
-    if x['submodel']['body']=='Sedan': print(x['name'].encode('utf-8'))
-
-
 # ## Get price data for a particular style of that vehicle in a given zip code
 
-# In[117]:
+# In[150]:
 
-style = model_data['styles'][0] # chose one randomly
-print(style)
-for k,v in style.items():
-    if isinstance(v, dict):
-        v = {str(x).encode('utf-8'): str(y).encode('utf-8') for x,y in v.items()}
-    print "{0}: {1}".format(k,v)
-styleid = style['id']
-zip_code = '02143'
-
-
-# In[118]:
-
-parameters = {'styleid': styleid, 'zip': zip_code, 'fmt' : 'json', 'api_key': key}
-typical_data = requests.get("https://api.edmunds.com/v1/api/tmv/tmvservice/calculatetypicallyequippedusedtmv", params=parameters).json()
-certified_data = requests.get("https://api.edmunds.com/v1/api/tmv/tmvservice/findcertifiedpriceforstyle", params=parameters)
+zip_code = '02115'
+data = []
+for year in ford_focus_years.index:
+    style_list = ford_focus_years.loc[year]['styles']['styles']
+    possible_styles = [style for style in style_list if 'se 4dr sedan' in style['name'].lower()]
+    try:
+        styleid = possible_styles[0]['id']
+    except:
+        break
+    parameters = {'styleid': styleid, 'zip': zip_code, 'fmt' : 'json', 'api_key': key}
+    typical_data = requests.get("https://api.edmunds.com/v1/api/tmv/tmvservice/calculatetypicallyequippedusedtmv", params=parameters).json()
+    time.sleep(2)
+    data.append(typical_data)
 
 
-# In[119]:
+# In[140]:
 
 print(typical_data['tmv']['totalWithOptions']['usedPrivateParty'])
 print(typical_data['tmv']['totalWithOptions']['usedTradeIn'])
-print(certified_data.content)
+#print(certified_data.content)
+
+
+# In[152]:
+
+ford_focus_years['typical_data'] = data
+
+
+# In[170]:
+
+ford_focus_years['used_private_party'] = ford_focus_years.apply(lambda row: row['typical_data']['tmv']['totalWithOptions']['usedPrivateParty'], axis=1)
+ford_focus_years['used_tradein'] = ford_focus_years.apply(lambda row: row['typical_data']['tmv']['totalWithOptions']['usedTradeIn'], axis=1)
+ford_focus_years['used_tmv_retail'] = ford_focus_years.apply(lambda row: row['typical_data']['tmv']['totalWithOptions']['usedTmvRetail'], axis=1)
+ford_focus_years['certified'] = ford_focus_years.apply(lambda row: row['typical_data']['tmv']['certifiedUsedPrice'], axis=1)
+
+
+# In[171]:
+
+ford_focus_years
 
 
 # In[ ]:
