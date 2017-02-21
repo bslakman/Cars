@@ -391,6 +391,43 @@ focus_data[focus_data['year']==2016]
 get_ipython().magic(u'store -r ford_focus_years')
 
 
+# In[433]:
+
+focus_years = focus_years.join(ford_focus_years)
+focus_years
+
+
+# In[574]:
+
+get_ipython().magic(u'store focus_years')
+
+
+# In[522]:
+
+get_ipython().magic(u'matplotlib inline')
+focus_years = focus_years.replace(0, np.nan)
+ax = focus_years.plot(y=[('price', 'mean'), 'used_private_party', 'used_tradein', 'used_tmv_retail', 'certified'], lw=3)
+ax.set_ylabel("Price ($)", fontdict={'fontsize': 14})
+ax.set_yticklabels(range(-2000,18000, 2000), fontdict={'fontsize': 12})
+ax.set_xlabel("Year", fontdict={'fontsize': 14})
+ax.set_xticklabels(range(2000,2018,2), fontdict={'fontsize': 12})
+ax.set_title("Ford Focus pricing, including Craigslist averages and Edmunds data, by year", fontdict={'fontsize': 16})
+ax.legend(fontsize = 'large')
+fig=ax.get_figure()
+fig.set_size_inches(9,6)
+fig.savefig('compare_prices.pdf', bbox_inches='tight')
+
+
+# In[457]:
+
+focus_data[focus_data['year']==2016]
+
+
+# In[459]:
+
+focus_data[focus_data['year']==2014]
+
+
 # In[575]:
 
 get_ipython().magic(u'store focus_data')
