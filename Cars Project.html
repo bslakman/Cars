@@ -11775,10 +11775,11 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="o">%</span><span class="k">store</span> -r all_car_info
+<span class="k">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_car_info</span><span class="p">)</span>
 <span class="n">all_car_info</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
@@ -11790,7 +11791,14 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[16]:</div>
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>7417
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[31]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -12691,10 +12699,11 @@ SgghhG7JkBJCCKFbMqSEEELolgwpIYQQuvUnB0GcaySSOvUAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="o">%</span><span class="k">store</span> -r regions
+<span class="k">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">regions</span><span class="p">)</span>
 <span class="n">regions</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
@@ -12706,7 +12715,14 @@ SgghhG7JkBJCCKFbMqSEEELolgwpIYQQuvUnB0GcaySSOvUAAAAASUVORK5CYII=
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>21
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[35]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -12717,7 +12733,6 @@ SgghhG7JkBJCCKFbMqSEEELolgwpIYQQuvUnB0GcaySSOvUAAAAASUVORK5CYII=
       <th colspan="2" halign="left">price</th>
       <th colspan="2" halign="left">mileage</th>
       <th colspan="2" halign="left">year</th>
-      <th>price_mileage_ratio</th>
     </tr>
     <tr>
       <th></th>
@@ -12727,11 +12742,9 @@ SgghhG7JkBJCCKFbMqSEEELolgwpIYQQuvUnB0GcaySSOvUAAAAASUVORK5CYII=
       <th>count</th>
       <th>mean</th>
       <th>count</th>
-      <th></th>
     </tr>
     <tr>
       <th>std_location</th>
-      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -12749,7 +12762,6 @@ SgghhG7JkBJCCKFbMqSEEELolgwpIYQQuvUnB0GcaySSOvUAAAAASUVORK5CYII=
       <td>7</td>
       <td>2004.161765</td>
       <td>68</td>
-      <td>0.049354</td>
     </tr>
     <tr>
       <th>malde</th>
@@ -12759,7 +12771,6 @@ SgghhG7JkBJCCKFbMqSEEELolgwpIYQQuvUnB0GcaySSOvUAAAAASUVORK5CYII=
       <td>10</td>
       <td>2002.515625</td>
       <td>64</td>
-      <td>0.062653</td>
     </tr>
     <tr>
       <th>rever</th>
@@ -12769,7 +12780,6 @@ SgghhG7JkBJCCKFbMqSEEELolgwpIYQQuvUnB0GcaySSOvUAAAAASUVORK5CYII=
       <td>5</td>
       <td>2002.000000</td>
       <td>60</td>
-      <td>0.084424</td>
     </tr>
   </tbody>
 </table>
@@ -14136,7 +14146,7 @@ LwAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="o">%</span><span class="k">store</span> -r focus_years
@@ -15154,10 +15164,11 @@ TkSuQmCC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="o">%</span><span class="k">store</span> -r focus_data
+<span class="k">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">focus_data</span><span class="p">)</span>
 <span class="n">focus_data</span><span class="p">[</span><span class="n">focus_data</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2016</span><span class="p">]</span>
 </pre></div>
 
@@ -15169,7 +15180,14 @@ TkSuQmCC
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[29]:</div>
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>177
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[38]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>

@@ -13,9 +13,10 @@ import numpy as np
 # ## Craigslist Data
 # This data has been scraped from boston.craigslist.org using the BeautifulSoup, requests and re modules; see Craiglist.ipynb notebook for code and more details.
 
-# In[16]:
+# In[31]:
 
 get_ipython().magic(u'store -r all_car_info')
+print len(all_car_info)
 all_car_info.head(3)
 
 
@@ -39,9 +40,10 @@ plt.xlabel('Year', fontdict={'fontsize': 14})
 plt.title('Car prices vs. Year', fontdict={'fontsize': 16})
 
 
-# In[17]:
+# In[35]:
 
 get_ipython().magic(u'store -r regions')
+print len(regions)
 regions.head(3)
 
 
@@ -90,7 +92,7 @@ plt.tight_layout()
 # ## Putting it together with Edmunds data
 # See the Craigslist.ipynb and Edmunds.ipynb notebooks for more details. I looked at data just for Ford Focuses, due to Edmunds API limitations! Data was compared to Craigslist averages for Ford Focuses, by year.
 
-# In[26]:
+# In[37]:
 
 get_ipython().magic(u'store -r focus_years')
 ax = focus_years.plot(y=[('price', 'mean'), 'used_private_party', 'used_tradein', 'used_tmv_retail', 'certified'], lw=3)
@@ -104,9 +106,10 @@ fig=ax.get_figure()
 fig.set_size_inches(9,6)
 
 
-# In[29]:
+# In[38]:
 
 get_ipython().magic(u'store -r focus_data')
+print len(focus_data)
 focus_data[focus_data['year']==2016]
 
 
