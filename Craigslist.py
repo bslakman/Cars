@@ -301,8 +301,9 @@ regions = regions[regions['mileage','count'] >= 5]
 regions.head()
 
 
-# In[570]:
+# In[579]:
 
+regions = regions.drop('price_mileage_ratio', axis=1)
 get_ipython().magic(u'store regions')
 
 
