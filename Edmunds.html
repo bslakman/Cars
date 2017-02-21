@@ -11767,7 +11767,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[141]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
@@ -11790,13 +11790,25 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[149]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;api.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;api2.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
 <span class="n">key</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-<span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;api_key&#39;</span><span class="p">:</span> <span class="n">key</span><span class="p">,</span> <span class="s1">&#39;fmt&#39;</span><span class="p">:</span> <span class="s1">&#39;json&#39;</span><span class="p">}</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;api_key&#39;</span><span class="p">:</span> <span class="n">key</span><span class="p">,</span> <span class="s1">&#39;fmt&#39;</span><span class="p">:</span> <span class="s1">&#39;json&#39;</span><span class="p">}</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://api.edmunds.com/api/vehicle/v2/makes&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 </pre></div>
@@ -12410,13 +12422,13 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[78]:</div>
+<div class="prompt input_prompt">In&nbsp;[102]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">ford_fiesta_years</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">ford_models</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Ford_Fiesta&#39;</span><span class="p">][</span><span class="s1">&#39;years&#39;</span><span class="p">])</span>
-<span class="n">ford_fiesta_years</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="k">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">ford_fiesta_years</span><span class="p">)</span>
-<span class="n">ford_fiesta_years</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">ford_focus_years</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">ford_models</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Ford_Focus&#39;</span><span class="p">][</span><span class="s1">&#39;years&#39;</span><span class="p">])</span>
+<span class="n">ford_focus_years</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">ford_focus_years</span><span class="p">)</span>
+<span class="n">ford_focus_years</span>
 </pre></div>
 
 </div>
@@ -12429,12 +12441,12 @@ div#notebook {
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>7
+<pre>18
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[78]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[102]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -12451,36 +12463,111 @@ div#notebook {
   </thead>
   <tbody>
     <tr>
+      <th>2000</th>
+      <td>1131</td>
+    </tr>
+    <tr>
+      <th>2001</th>
+      <td>100000083</td>
+    </tr>
+    <tr>
+      <th>2002</th>
+      <td>100000084</td>
+    </tr>
+    <tr>
+      <th>2003</th>
+      <td>100502787</td>
+    </tr>
+    <tr>
+      <th>2004</th>
+      <td>100503532</td>
+    </tr>
+    <tr>
+      <th>2005</th>
+      <td>100504602</td>
+    </tr>
+    <tr>
+      <th>2006</th>
+      <td>100506349</td>
+    </tr>
+    <tr>
+      <th>2007</th>
+      <td>100512839</td>
+    </tr>
+    <tr>
+      <th>2008</th>
+      <td>100512964</td>
+    </tr>
+    <tr>
+      <th>2009</th>
+      <td>100525657</td>
+    </tr>
+    <tr>
+      <th>2010</th>
+      <td>100528252</td>
+    </tr>
+    <tr>
       <th>2011</th>
-      <td>100524971</td>
+      <td>100531810</td>
     </tr>
     <tr>
       <th>2012</th>
-      <td>100534989</td>
+      <td>100531217</td>
     </tr>
     <tr>
       <th>2013</th>
-      <td>200421599</td>
+      <td>200421411</td>
     </tr>
     <tr>
       <th>2014</th>
-      <td>200443870</td>
+      <td>200473295</td>
     </tr>
     <tr>
       <th>2015</th>
-      <td>200692516</td>
+      <td>200696413</td>
     </tr>
     <tr>
       <th>2016</th>
-      <td>200733229</td>
+      <td>200740244</td>
     </tr>
     <tr>
       <th>2017</th>
-      <td>401677703</td>
+      <td>401670491</td>
     </tr>
   </tbody>
 </table>
 </div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[96]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">ford_focus_years</span><span class="o">.</span><span class="n">index</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[96]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Int64Index([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
+            2011, 2012, 2013, 2014, 2015, 2016],
+           dtype=&#39;int64&#39;, name=u&#39;year&#39;)</pre>
 </div>
 
 </div>
@@ -12513,17 +12600,17 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[57]:</div>
+<div class="prompt input_prompt">In&nbsp;[98]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
 <span class="n">makeNiceName</span> <span class="o">=</span> <span class="s1">&#39;ford&#39;</span>
-<span class="n">modelNiceName</span> <span class="o">=</span> <span class="s1">&#39;fiesta&#39;</span>
-<span class="n">fiesta_style_details</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">modelNiceName</span> <span class="o">=</span> <span class="s1">&#39;focus&#39;</span>
+<span class="n">focus_style_details</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">parameters</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;api_key&#39;</span><span class="p">:</span> <span class="n">key</span><span class="p">,</span> <span class="s1">&#39;fmt&#39;</span><span class="p">:</span> <span class="s1">&#39;json&#39;</span><span class="p">}</span>
-<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">ford_fiesta_years</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
-    <span class="n">fiesta_style_details</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://api.edmunds.com/api/vehicle/v2/{0}/{1}/{2}/styles&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">makeNiceName</span><span class="p">,</span><span class="n">modelNiceName</span><span class="p">,</span><span class="n">year</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">parameters</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">ford_focus_years</span><span class="o">.</span><span class="n">index</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span> <span class="c1"># don&#39;t include 2017</span>
+    <span class="n">focus_style_details</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://api.edmunds.com/api/vehicle/v2/{0}/{1}/{2}/styles&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">makeNiceName</span><span class="p">,</span><span class="n">modelNiceName</span><span class="p">,</span><span class="n">year</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">parameters</span><span class="p">))</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
@@ -12534,43 +12621,37 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[85]:</div>
+<div class="prompt input_prompt">In&nbsp;[124]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">ford_fiesta_years</span> <span class="o">=</span> <span class="n">ford_fiesta_years</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">2011</span><span class="p">:</span><span class="mi">2016</span><span class="p">]</span>
-<span class="n">ford_fiesta_years</span><span class="p">[</span><span class="s1">&#39;styles&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fiesta_style_details</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">ford_focus_years</span> <span class="o">=</span> <span class="n">ford_focus_years</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">2000</span><span class="p">:</span><span class="mi">2016</span><span class="p">]</span>
+<span class="n">ford_focus_years</span><span class="p">[</span><span class="s1">&#39;styles&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">focus_style_details</span>
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/Users/belinda/anaconda2/lib/python2.7/site-packages/ipykernel/__main__.py:2: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-  from ipykernel import kernelapp as app
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[86]:</div>
+<div class="prompt input_prompt">In&nbsp;[125]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">ford_fiesta_years</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">ford_focus_years</span><span class="p">[</span><span class="s1">&#39;styles&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ford_focus_years</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;styles&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">json</span><span class="p">(),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[126]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">ford_focus_years</span>
 </pre></div>
 
 </div>
@@ -12581,7 +12662,7 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[86]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[126]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -12600,34 +12681,89 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
   </thead>
   <tbody>
     <tr>
+      <th>2000</th>
+      <td>1131</td>
+      <td>{u'styles': [{u'trim': u'SE', u'name': u'SE 4d...</td>
+    </tr>
+    <tr>
+      <th>2001</th>
+      <td>100000083</td>
+      <td>{u'styles': [{u'trim': u'ZX3', u'name': u'ZX3 ...</td>
+    </tr>
+    <tr>
+      <th>2002</th>
+      <td>100000084</td>
+      <td>{u'styles': [{u'trim': u'ZX3 Premium', u'name'...</td>
+    </tr>
+    <tr>
+      <th>2003</th>
+      <td>100502787</td>
+      <td>{u'styles': [{u'trim': u'SE Comfort', u'name':...</td>
+    </tr>
+    <tr>
+      <th>2004</th>
+      <td>100503532</td>
+      <td>{u'styles': [{u'trim': u'ZX3 Comfort', u'name'...</td>
+    </tr>
+    <tr>
+      <th>2005</th>
+      <td>100504602</td>
+      <td>{u'styles': [{u'trim': u'ZX4 ST', u'name': u'Z...</td>
+    </tr>
+    <tr>
+      <th>2006</th>
+      <td>100506349</td>
+      <td>{u'styles': [{u'trim': u'ZX4 ST', u'name': u'Z...</td>
+    </tr>
+    <tr>
+      <th>2007</th>
+      <td>100512839</td>
+      <td>{u'styles': [{u'trim': u'ZX5 SE', u'name': u'Z...</td>
+    </tr>
+    <tr>
+      <th>2008</th>
+      <td>100512964</td>
+      <td>{u'styles': [{u'trim': u'S', u'name': u'S 2dr ...</td>
+    </tr>
+    <tr>
+      <th>2009</th>
+      <td>100525657</td>
+      <td>{u'styles': [{u'trim': u'SE', u'name': u'SE 4d...</td>
+    </tr>
+    <tr>
+      <th>2010</th>
+      <td>100528252</td>
+      <td>{u'styles': [{u'trim': u'SES', u'name': u'SES ...</td>
+    </tr>
+    <tr>
       <th>2011</th>
-      <td>100524971</td>
-      <td>{u'styles': [{u'trim': u'SEL', u'name': u'SEL ...</td>
+      <td>100531810</td>
+      <td>{u'styles': [{u'trim': u'SE', u'name': u'SE 4d...</td>
     </tr>
     <tr>
       <th>2012</th>
-      <td>100534989</td>
-      <td>{u'styles': [{u'trim': u'SEL', u'name': u'SEL ...</td>
+      <td>100531217</td>
+      <td>{u'styles': [{u'trim': u'Titanium', u'name': u...</td>
     </tr>
     <tr>
       <th>2013</th>
-      <td>200421599</td>
+      <td>200421411</td>
       <td>{u'styles': [{u'trim': u'Titanium', u'name': u...</td>
     </tr>
     <tr>
       <th>2014</th>
-      <td>200443870</td>
-      <td>{u'styles': [{u'trim': u'S', u'name': u'S 4dr ...</td>
+      <td>200473295</td>
+      <td>{u'styles': [{u'trim': u'Electric', u'name': u...</td>
     </tr>
     <tr>
       <th>2015</th>
-      <td>200692516</td>
-      <td>{u'styles': [{u'trim': u'Titanium', u'name': u...</td>
+      <td>200696413</td>
+      <td>{u'styles': [{u'trim': u'SE', u'name': u'SE 4d...</td>
     </tr>
     <tr>
       <th>2016</th>
-      <td>200733229</td>
-      <td>{u'styles': [{u'trim': u'S', u'name': u'S 4dr ...</td>
+      <td>200740244</td>
+      <td>{u'styles': [{u'trim': u'SE', u'name': u'SE 4d...</td>
     </tr>
   </tbody>
 </table>
@@ -12651,12 +12787,12 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[89]:</div>
+<div class="prompt input_prompt">In&nbsp;[136]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">ford_fiesta_styles_2011</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">ford_fiesta_years</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">2011</span><span class="p">][</span><span class="s1">&#39;styles&#39;</span><span class="p">][</span><span class="s1">&#39;styles&#39;</span><span class="p">])</span>
-<span class="n">ford_fiesta_styles_2011</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="n">ford_fiesta_styles_2011</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">ford_focus_styles_2016</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">ford_focus_years</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">2016</span><span class="p">][</span><span class="s1">&#39;styles&#39;</span><span class="p">][</span><span class="s1">&#39;styles&#39;</span><span class="p">])</span>
+<span class="n">ford_focus_styles_2016</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">ford_focus_styles_2016</span>
 </pre></div>
 
 </div>
@@ -12667,7 +12803,7 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[89]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[136]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -12694,49 +12830,58 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
   </thead>
   <tbody>
     <tr>
-      <th>101266474</th>
+      <th>200740250</th>
       <td>{u'id': 200005143, u'niceName': u'ford', u'nam...</td>
-      <td>{u'id': u'Ford_Fiesta', u'niceName': u'fiesta'...</td>
-      <td>SEL 4dr Sedan (1.6L 4cyl 5M)</td>
-      <td>{u'body': u'Sedan', u'modelName': u'Fiesta Sed...</td>
-      <td>SEL</td>
-      <td>{u'id': 100524971, u'year': 2011}</td>
-    </tr>
-    <tr>
-      <th>101266473</th>
-      <td>{u'id': 200005143, u'niceName': u'ford', u'nam...</td>
-      <td>{u'id': u'Ford_Fiesta', u'niceName': u'fiesta'...</td>
-      <td>SE 4dr Sedan (1.6L 4cyl 5M)</td>
-      <td>{u'body': u'Sedan', u'modelName': u'Fiesta Sed...</td>
+      <td>{u'id': u'Ford_Focus', u'niceName': u'focus', ...</td>
+      <td>SE 4dr Sedan (2.0L 4cyl 5M)</td>
+      <td>{u'body': u'Sedan', u'modelName': u'Focus Seda...</td>
       <td>SE</td>
-      <td>{u'id': 100524971, u'year': 2011}</td>
+      <td>{u'id': 200740244, u'year': 2016}</td>
     </tr>
     <tr>
-      <th>101266475</th>
+      <th>200740246</th>
       <td>{u'id': 200005143, u'niceName': u'ford', u'nam...</td>
-      <td>{u'id': u'Ford_Fiesta', u'niceName': u'fiesta'...</td>
-      <td>SE 4dr Hatchback (1.6L 4cyl 5M)</td>
-      <td>{u'body': u'Hatchback', u'modelName': u'Fiesta...</td>
+      <td>{u'id': u'Ford_Focus', u'niceName': u'focus', ...</td>
+      <td>Titanium 4dr Hatchback (2.0L 4cyl 6AM)</td>
+      <td>{u'body': u'Hatchback', u'modelName': u'Focus ...</td>
+      <td>Titanium</td>
+      <td>{u'id': 200740244, u'year': 2016}</td>
+    </tr>
+    <tr>
+      <th>200740245</th>
+      <td>{u'id': 200005143, u'niceName': u'ford', u'nam...</td>
+      <td>{u'id': u'Ford_Focus', u'niceName': u'focus', ...</td>
+      <td>Titanium 4dr Sedan (2.0L 4cyl 6AM)</td>
+      <td>{u'body': u'Sedan', u'modelName': u'Focus Seda...</td>
+      <td>Titanium</td>
+      <td>{u'id': 200740244, u'year': 2016}</td>
+    </tr>
+    <tr>
+      <th>200740249</th>
+      <td>{u'id': 200005143, u'niceName': u'ford', u'nam...</td>
+      <td>{u'id': u'Ford_Focus', u'niceName': u'focus', ...</td>
+      <td>Electric 4dr Hatchback (electric DD)</td>
+      <td>{u'body': u'Hatchback', u'fuel': u'Electric', ...</td>
+      <td>Electric</td>
+      <td>{u'id': 200740244, u'year': 2016}</td>
+    </tr>
+    <tr>
+      <th>200740248</th>
+      <td>{u'id': 200005143, u'niceName': u'ford', u'nam...</td>
+      <td>{u'id': u'Ford_Focus', u'niceName': u'focus', ...</td>
+      <td>SE 4dr Hatchback (2.0L 4cyl 5M)</td>
+      <td>{u'body': u'Hatchback', u'modelName': u'Focus ...</td>
       <td>SE</td>
-      <td>{u'id': 100524971, u'year': 2011}</td>
+      <td>{u'id': 200740244, u'year': 2016}</td>
     </tr>
     <tr>
-      <th>101266476</th>
+      <th>200740247</th>
       <td>{u'id': 200005143, u'niceName': u'ford', u'nam...</td>
-      <td>{u'id': u'Ford_Fiesta', u'niceName': u'fiesta'...</td>
-      <td>SES 4dr Hatchback (1.6L 4cyl 5M)</td>
-      <td>{u'body': u'Hatchback', u'modelName': u'Fiesta...</td>
-      <td>SES</td>
-      <td>{u'id': 100524971, u'year': 2011}</td>
-    </tr>
-    <tr>
-      <th>101216523</th>
-      <td>{u'id': 200005143, u'niceName': u'ford', u'nam...</td>
-      <td>{u'id': u'Ford_Fiesta', u'niceName': u'fiesta'...</td>
-      <td>S 4dr Sedan (1.6L 4cyl 5M)</td>
-      <td>{u'body': u'Sedan', u'modelName': u'Fiesta Sed...</td>
+      <td>{u'id': u'Ford_Focus', u'niceName': u'focus', ...</td>
+      <td>S 4dr Sedan (2.0L 4cyl 5M)</td>
+      <td>{u'body': u'Sedan', u'modelName': u'Focus Seda...</td>
       <td>S</td>
-      <td>{u'id': 100524971, u'year': 2011}</td>
+      <td>{u'id': 200740244, u'year': 2016}</td>
     </tr>
   </tbody>
 </table>
@@ -12745,36 +12890,6 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
 
 </div>
 
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">make_nice_name</span> <span class="o">=</span> <span class="s1">&#39;kia&#39;</span>
-<span class="n">model_nice_name</span> <span class="o">=</span> <span class="s1">&#39;sportage&#39;</span>
-<span class="n">year</span> <span class="o">=</span> <span class="s1">&#39;2012&#39;</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;fmt&#39;</span><span class="p">:</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="s1">&#39;api_key&#39;</span><span class="p">:</span> <span class="n">key</span><span class="p">}</span>
-<span class="n">model_data</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://api.edmunds.com/api/vehicle/v2/{0}/{1}/{2}/styles&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">make_nice_name</span><span class="p">,</span><span class="n">model_nice_name</span><span class="p">,</span><span class="n">year</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-<span class="c1">#print(civic_data)</span>
-</pre></div>
-
-</div>
 </div>
 </div>
 
@@ -12789,41 +12904,6 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">model_data</span><span class="p">[</span><span class="s1">&#39;styles&#39;</span><span class="p">]:</span>
-    <span class="c1">#if x[&#39;submodel&#39;][&#39;body&#39;]==&#39;Sedan&#39;: </span>
-    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>EX 4dr SUV (2.4L 4cyl 6A)
-SX 4dr SUV AWD (2.0L 4cyl Turbo 6A)
-SX 4dr SUV (2.0L 4cyl Turbo 6A)
-LX 4dr SUV (2.4L 4cyl 6A)
-4dr SUV (2.4L 4cyl 6M)
-EX 4dr SUV AWD (2.4L 4cyl 6A)
-LX 4dr SUV AWD (2.4L 4cyl 6A)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -12835,16 +12915,37 @@ LX 4dr SUV AWD (2.4L 4cyl 6A)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[150]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">style</span> <span class="o">=</span> <span class="n">model_data</span><span class="p">[</span><span class="s1">&#39;styles&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># chose one randomly</span>
-<span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">style</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">):</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
-    <span class="k">print</span> <span class="s2">&quot;{0}: {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
-<span class="n">styleid</span> <span class="o">=</span> <span class="n">style</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
-<span class="n">zip_code</span> <span class="o">=</span> <span class="s1">&#39;33076&#39;</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">zip_code</span> <span class="o">=</span> <span class="s1">&#39;02115&#39;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">ford_focus_years</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+    <span class="n">style_list</span> <span class="o">=</span> <span class="n">ford_focus_years</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">year</span><span class="p">][</span><span class="s1">&#39;styles&#39;</span><span class="p">][</span><span class="s1">&#39;styles&#39;</span><span class="p">]</span>
+    <span class="n">possible_styles</span> <span class="o">=</span> <span class="p">[</span><span class="n">style</span> <span class="k">for</span> <span class="n">style</span> <span class="ow">in</span> <span class="n">style_list</span> <span class="k">if</span> <span class="s1">&#39;se 4dr sedan&#39;</span> <span class="ow">in</span> <span class="n">style</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">styleid</span> <span class="o">=</span> <span class="n">possible_styles</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;styleid&#39;</span><span class="p">:</span> <span class="n">styleid</span><span class="p">,</span> <span class="s1">&#39;zip&#39;</span><span class="p">:</span> <span class="n">zip_code</span><span class="p">,</span> <span class="s1">&#39;fmt&#39;</span> <span class="p">:</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="s1">&#39;api_key&#39;</span><span class="p">:</span> <span class="n">key</span><span class="p">}</span>
+    <span class="n">typical_data</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://api.edmunds.com/v1/api/tmv/tmvservice/calculatetypicallyequippedusedtmv&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">typical_data</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[140]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">typical_data</span><span class="p">[</span><span class="s1">&#39;tmv&#39;</span><span class="p">][</span><span class="s1">&#39;totalWithOptions&#39;</span><span class="p">][</span><span class="s1">&#39;usedPrivateParty&#39;</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">typical_data</span><span class="p">[</span><span class="s1">&#39;tmv&#39;</span><span class="p">][</span><span class="s1">&#39;totalWithOptions&#39;</span><span class="p">][</span><span class="s1">&#39;usedTradeIn&#39;</span><span class="p">])</span>
+<span class="c1">#print(certified_data.content)</span>
 </pre></div>
 
 </div>
@@ -12857,13 +12958,8 @@ LX 4dr SUV AWD (2.4L 4cyl 6A)
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>trim: EX
-name: EX 4dr SUV (2.4L 4cyl 6A)
-make: {&#39;id&#39;: &#39;200003063&#39;, &#39;niceName&#39;: &#39;kia&#39;, &#39;name&#39;: &#39;Kia&#39;}
-id: 101386722
-year: {&#39;id&#39;: &#39;100535289&#39;, &#39;year&#39;: &#39;2012&#39;}
-model: {&#39;id&#39;: &#39;Kia_Sportage&#39;, &#39;niceName&#39;: &#39;sportage&#39;, &#39;name&#39;: &#39;Sportage&#39;}
-submodel: {&#39;body&#39;: &#39;SUV&#39;, &#39;modelName&#39;: &#39;Sportage SUV&#39;, &#39;niceName&#39;: &#39;suv&#39;}
+<pre>884.0
+292.0
 </pre>
 </div>
 </div>
@@ -12874,12 +12970,10 @@ submodel: {&#39;body&#39;: &#39;SUV&#39;, &#39;modelName&#39;: &#39;Sportage SUV
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[152]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;styleid&#39;</span><span class="p">:</span> <span class="n">styleid</span><span class="p">,</span> <span class="s1">&#39;zip&#39;</span><span class="p">:</span> <span class="n">zip_code</span><span class="p">,</span> <span class="s1">&#39;fmt&#39;</span> <span class="p">:</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="s1">&#39;api_key&#39;</span><span class="p">:</span> <span class="n">key</span><span class="p">}</span>
-<span class="n">typical_data</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://api.edmunds.com/v1/api/tmv/tmvservice/calculatetypicallyequippedusedtmv&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-<span class="n">certified_data</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://api.edmunds.com/v1/api/tmv/tmvservice/findcertifiedpriceforstyle&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">ford_focus_years</span><span class="p">[</span><span class="s1">&#39;typical_data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
 </pre></div>
 
 </div>
@@ -12889,12 +12983,251 @@ submodel: {&#39;body&#39;: &#39;SUV&#39;, &#39;modelName&#39;: &#39;Sportage SUV
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[170]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">typical_data</span><span class="p">[</span><span class="s1">&#39;tmv&#39;</span><span class="p">][</span><span class="s1">&#39;totalWithOptions&#39;</span><span class="p">][</span><span class="s1">&#39;usedPrivateParty&#39;</span><span class="p">])</span>
-<span class="k">print</span><span class="p">(</span><span class="n">typical_data</span><span class="p">[</span><span class="s1">&#39;tmv&#39;</span><span class="p">][</span><span class="s1">&#39;totalWithOptions&#39;</span><span class="p">][</span><span class="s1">&#39;usedTradeIn&#39;</span><span class="p">])</span>
-<span class="k">print</span><span class="p">(</span><span class="n">certified_data</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">ford_focus_years</span><span class="p">[</span><span class="s1">&#39;used_private_party&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ford_focus_years</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;typical_data&#39;</span><span class="p">][</span><span class="s1">&#39;tmv&#39;</span><span class="p">][</span><span class="s1">&#39;totalWithOptions&#39;</span><span class="p">][</span><span class="s1">&#39;usedPrivateParty&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ford_focus_years</span><span class="p">[</span><span class="s1">&#39;used_tradein&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ford_focus_years</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;typical_data&#39;</span><span class="p">][</span><span class="s1">&#39;tmv&#39;</span><span class="p">][</span><span class="s1">&#39;totalWithOptions&#39;</span><span class="p">][</span><span class="s1">&#39;usedTradeIn&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ford_focus_years</span><span class="p">[</span><span class="s1">&#39;used_tmv_retail&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ford_focus_years</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;typical_data&#39;</span><span class="p">][</span><span class="s1">&#39;tmv&#39;</span><span class="p">][</span><span class="s1">&#39;totalWithOptions&#39;</span><span class="p">][</span><span class="s1">&#39;usedTmvRetail&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ford_focus_years</span><span class="p">[</span><span class="s1">&#39;certified&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ford_focus_years</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;typical_data&#39;</span><span class="p">][</span><span class="s1">&#39;tmv&#39;</span><span class="p">][</span><span class="s1">&#39;certifiedUsedPrice&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[171]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">ford_focus_years</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[171]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>styles</th>
+      <th>typical_data</th>
+      <th>used_private_party</th>
+      <th>used_tradein</th>
+      <th>used_tmv_retail</th>
+      <th>certified</th>
+    </tr>
+    <tr>
+      <th>year</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2000</th>
+      <td>1131</td>
+      <td>{u'styles': [{u'trim': u'SE', u'name': u'SE 4d...</td>
+      <td>{u'tmv': {u'estimatedTmv': False, u'destinatio...</td>
+      <td>884.0</td>
+      <td>292.0</td>
+      <td>1875.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2001</th>
+      <td>100000083</td>
+      <td>{u'styles': [{u'trim': u'ZX3', u'name': u'ZX3 ...</td>
+      <td>{u'tmv': {u'estimatedTmv': False, u'destinatio...</td>
+      <td>929.0</td>
+      <td>301.0</td>
+      <td>1978.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2002</th>
+      <td>100000084</td>
+      <td>{u'styles': [{u'trim': u'ZX3 Premium', u'name'...</td>
+      <td>{u'tmv': {u'estimatedTmv': False, u'destinatio...</td>
+      <td>1009.0</td>
+      <td>415.0</td>
+      <td>1998.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2003</th>
+      <td>100502787</td>
+      <td>{u'styles': [{u'trim': u'SE Comfort', u'name':...</td>
+      <td>{u'tmv': {u'estimatedTmv': False, u'destinatio...</td>
+      <td>1146.0</td>
+      <td>510.0</td>
+      <td>2210.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2004</th>
+      <td>100503532</td>
+      <td>{u'styles': [{u'trim': u'ZX3 Comfort', u'name'...</td>
+      <td>{u'tmv': {u'estimatedTmv': False, u'destinatio...</td>
+      <td>1117.0</td>
+      <td>489.0</td>
+      <td>2162.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2005</th>
+      <td>100504602</td>
+      <td>{u'styles': [{u'trim': u'ZX4 ST', u'name': u'Z...</td>
+      <td>{u'tmv': {u'estimatedTmv': False, u'destinatio...</td>
+      <td>1548.0</td>
+      <td>813.0</td>
+      <td>2779.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2006</th>
+      <td>100506349</td>
+      <td>{u'styles': [{u'trim': u'ZX4 ST', u'name': u'Z...</td>
+      <td>{u'tmv': {u'estimatedTmv': False, u'destinatio...</td>
+      <td>1612.0</td>
+      <td>760.0</td>
+      <td>3034.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2007</th>
+      <td>100512839</td>
+      <td>{u'styles': [{u'trim': u'ZX5 SE', u'name': u'Z...</td>
+      <td>{u'tmv': {u'estimatedTmv': False, u'destinatio...</td>
+      <td>1893.0</td>
+      <td>978.0</td>
+      <td>3405.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2008</th>
+      <td>100512964</td>
+      <td>{u'styles': [{u'trim': u'S', u'name': u'S 2dr ...</td>
+      <td>{u'tmv': {u'estimatedTmv': False, u'destinatio...</td>
+      <td>2544.0</td>
+      <td>1395.0</td>
+      <td>4123.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2009</th>
+      <td>100525657</td>
+      <td>{u'styles': [{u'trim': u'SE', u'name': u'SE 4d...</td>
+      <td>{u'tmv': {u'estimatedTmv': False, u'destinatio...</td>
+      <td>3310.0</td>
+      <td>1991.0</td>
+      <td>4922.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2010</th>
+      <td>100528252</td>
+      <td>{u'styles': [{u'trim': u'SES', u'name': u'SES ...</td>
+      <td>{u'tmv': {u'estimatedTmv': False, u'destinatio...</td>
+      <td>4209.0</td>
+      <td>2799.0</td>
+      <td>5798.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2011</th>
+      <td>100531810</td>
+      <td>{u'styles': [{u'trim': u'SE', u'name': u'SE 4d...</td>
+      <td>{u'tmv': {u'estimatedTmv': False, u'destinatio...</td>
+      <td>5044.0</td>
+      <td>3534.0</td>
+      <td>6619.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2012</th>
+      <td>100531217</td>
+      <td>{u'styles': [{u'trim': u'Titanium', u'name': u...</td>
+      <td>{u'tmv': {u'estimatedTmv': False, u'destinatio...</td>
+      <td>6092.0</td>
+      <td>4574.0</td>
+      <td>7587.0</td>
+      <td>8601.0</td>
+    </tr>
+    <tr>
+      <th>2013</th>
+      <td>200421411</td>
+      <td>{u'styles': [{u'trim': u'Titanium', u'name': u...</td>
+      <td>{u'tmv': {u'estimatedTmv': False, u'destinatio...</td>
+      <td>7531.0</td>
+      <td>5961.0</td>
+      <td>8991.0</td>
+      <td>9832.0</td>
+    </tr>
+    <tr>
+      <th>2014</th>
+      <td>200473295</td>
+      <td>{u'styles': [{u'trim': u'Electric', u'name': u...</td>
+      <td>{u'tmv': {u'estimatedTmv': False, u'destinatio...</td>
+      <td>9304.0</td>
+      <td>7593.0</td>
+      <td>10832.0</td>
+      <td>11593.0</td>
+    </tr>
+    <tr>
+      <th>2015</th>
+      <td>200696413</td>
+      <td>{u'styles': [{u'trim': u'SE', u'name': u'SE 4d...</td>
+      <td>{u'tmv': {u'estimatedTmv': False, u'destinatio...</td>
+      <td>10741.0</td>
+      <td>9132.0</td>
+      <td>12071.0</td>
+      <td>12714.0</td>
+    </tr>
+    <tr>
+      <th>2016</th>
+      <td>200740244</td>
+      <td>{u'styles': [{u'trim': u'SE', u'name': u'SE 4d...</td>
+      <td>{u'tmv': {u'estimatedTmv': False, u'destinatio...</td>
+      <td>12502.0</td>
+      <td>10831.0</td>
+      <td>13783.0</td>
+      <td>14317.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[172]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="o">%</span><span class="k">store</span> ford_focus_years
 </pre></div>
 
 </div>
@@ -12907,9 +13240,7 @@ submodel: {&#39;body&#39;: &#39;SUV&#39;, &#39;modelName&#39;: &#39;Sportage SUV
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>10866.0
-9327.0
-0.0
+<pre>Stored &#39;ford_focus_years&#39; (DataFrame)
 </pre>
 </div>
 </div>
