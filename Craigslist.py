@@ -232,7 +232,12 @@ plt.ylim(0,3E5)
 plt.xlim(1950,)
 
 
-# In[251]:
+# In[569]:
+
+get_ipython().magic(u'store all_car_info')
+
+
+# In[568]:
 
 all_car_info.plot.scatter('mileage', 'price')
 plt.xlim(0,3E5)
@@ -296,7 +301,9 @@ regions = regions[regions['mileage','count'] >= 5]
 regions.head()
 
 
-# In[430]:
+# In[570]:
+
+get_ipython().magic(u'store regions')
 
 
 # In[549]:
@@ -379,6 +386,16 @@ focus_years
 focus_data[focus_data['year']==2016]
 
 
+# In[432]:
+
+get_ipython().magic(u'store -r ford_focus_years')
+
+
+# In[575]:
+
+get_ipython().magic(u'store focus_data')
+
+
 # In[356]:
 
 from sklearn import linear_model
@@ -410,6 +427,12 @@ print "Average score = {0} +/- {1}".format(round(np.mean(scores),3), round(np.st
 
 
 # In[410]:
+# In[573]:
+
+get_ipython().magic(u'store X_test')
+get_ipython().magic(u'store y_test')
+get_ipython().magic(u'store model')
+get_ipython().magic(u'store scores')
 
 fig = plt.figure(figsize=(9,6))
 plt.scatter(y_test, model.predict(X_test), label="predicted")
