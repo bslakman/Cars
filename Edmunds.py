@@ -144,6 +144,11 @@ ford_focus_years['certified'] = ford_focus_years.apply(lambda row: row['typical_
 ford_focus_years
 
 
+# In[172]:
+
+get_ipython().magic(u'store ford_focus_years')
+
+
 # In[ ]:
 
 
