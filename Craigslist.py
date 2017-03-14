@@ -192,13 +192,7 @@ all_car_info['std_location'] = all_car_info.apply(lambda row: re.sub('[^a-z]', '
 all_car_info.head()
 
 
-# In[245]:
-
-all_car_info.set_index('link', inplace=True)
-all_car_info.head()
-
-
-# In[246]:
+# In[18]:
 
 import pandas_profiling
 pandas_profiling.ProfileReport(all_car_info)
@@ -264,6 +258,7 @@ print all_car_info[all_car_info['price'] >= 150000]
 
 # In[ ]:
 
+df = all_car_info
 fig = plt.figure(figsize=(6,4))
 ax1 = fig.add_subplot(111)
 ax1.set_xlabel('Year')
@@ -292,7 +287,7 @@ regions = all_car_info[all_car_info['std_location'] != ''].groupby('std_location
 
 # In[264]:
 
-regions = regions[regions['price','count'] >= 50]
+regions = regions[regions['price','count'] >= 25]
 regions = regions[regions['mileage','count'] >= 5]
 
 
@@ -303,7 +298,7 @@ regions.head()
 
 # In[579]:
 
-regions = regions.drop('price_mileage_ratio', axis=1)
+#regions = regions.drop('price_mileage_ratio', axis=1)
 get_ipython().magic(u'store regions')
 
 
@@ -337,7 +332,42 @@ print linregress(df['year'][~df['price'].isnull()].dropna(), df['price'][~df['ye
 print linregress(df['year'][~df['mileage'].isnull()].dropna(), df['mileage'][~df['year'].isnull()].dropna())
 
 
-# In[ ]:
+# In[45]:
+
+def draw_regional_fig(make, model, year):
+    listings = []
+    make_model = "{0} {1}".format(make,model)
+    min_auto_year = int(year) - 2
+    max_auto_year = int(year) + 2
+    if max_auto_year > 2016:
+        max_auto_year = 2016
+    for i in range(0, 500, 100):
+        car_results = fetch(auto_make_model=make_model, min_auto_year=min_auto_year, max_auto_year=max_auto_year, s=i)
+        doc = parse(car_results[0])
+        listings.extend(extract_listings(doc))
+    
+    df = pd.DataFrame(data=listings)
+    if len(df) == 0: return "No results found, check your spelling"
+    df['mileage'] = df.apply(lambda row: get_mileage(row['description']), axis=1)
+    df['price'] = df.apply(lambda row: get_price(row['price']), axis=1)
+    df['region'] = df['link'].str[1:5]
+    df['year'] = df.apply(lambda row: get_year(row['description']), axis=1)
+    
+    regions = df.groupby('region').mean()
+    regions = regions.append(pd.Series(data={'year': np.mean(df['year']), 'price': np.mean(df['price']), 'mileage': np.mean(df['mileage'])}, name='AVERAGE'))
+    
+    my_title = 'Average Price and Mileage of Used {0} {1}, {2}-{3}, by region, n={4}'.format(make, model, min_auto_year, max_auto_year, len(df))
+    ax = regions['price'].plot.bar(position=0, width=0.3, alpha=0.5, legend=True, title=my_title)
+    ax.set_ylabel('Price($)')
+    ax = regions['mileage'].plot.bar(secondary_y=True, color='green', position=1, width=0.3, alpha=0.5, legend=True)
+    ax.set_ylabel('Mileage')
+    sns.despine(top=True, right=False)
+    fig=ax.get_figure()
+    
+    return fig
+
+
+# In[46]:
 
 focus_data = scrape_all(search_params={'auto_make_model': 'ford focus'})
 print len(focus_data)
@@ -445,6 +475,7 @@ from sklearn.model_selection import ShuffleSplit, train_test_split
 
 data = all_car_info[['year', 'mileage', 'price']].dropna()
 data = data[data['price'] < 100000]
+data = data[data['price'] > 99]
 data = data[data['mileage'] < 500000]
 data = data[data['year'] > 1986]
 X = data[['year', 'mileage']]
