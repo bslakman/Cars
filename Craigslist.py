@@ -520,6 +520,37 @@ fig.savefig('regression.pdf')
 print model.coef_
 
 
+# Try and turn the plot into a Bokeh plot...
+
+# In[170]:
+
+from bokeh.plotting import figure, show
+from bokeh.io import output_notebook
+from bokeh.models import Axis, HoverTool
+
+
+# In[186]:
+
+radii = (X_test['year']-1986)/20 * 1500 # size of points is scaled to year
+
+
+# In[172]:
+
+output_notebook()
+
+
+# In[194]:
+
+hover = HoverTool(tooltips=[('Predicted, Actual', '$x, $y')])
+ax_limit = max(y_test + model.predict(X_test)) + 1000
+p = figure(x_range=(0,ax_limit), y_range=(0,ax_limit), plot_width=500, plot_height=400, tools=[hover])
+for axis in p.select(dict(type=Axis)):
+    axis.formatter.use_scientific = False
+p.circle(y_test, model.predict(X_test), radius = radii, line_color='black', fill_alpha=0.5)
+p.line(y_test, y_test, color = 'gray')
+show(p)
+
+
 # In[ ]:
 
 
