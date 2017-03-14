@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[36]:
+# In[1]:
 
 import requests
 from bs4 import BeautifulSoup
@@ -82,7 +82,7 @@ def get_mileage(description):
         return np.nan
 
 
-# In[16]:
+# In[7]:
 
 def get_year(description):
     description = re.split('(20[0-9][0-9])', description)
@@ -104,7 +104,7 @@ def get_year(description):
         return np.nan
 
 
-# In[24]:
+# In[8]:
 
 def get_standard_location(location):
     """
@@ -125,7 +125,7 @@ def get_price(price):
         return np.nan
 
 
-# In[111]:
+# In[64]:
 
 def scrape_all(search_params={}):
     listings = []
@@ -155,7 +155,7 @@ def scrape_all(search_params={}):
     return df
 
 
-# In[108]:
+# In[65]:
 
 all_car_info = scrape_all()
 print len(all_car_info)
@@ -165,30 +165,29 @@ all_car_info = all_car_info.drop_duplicates()
 print len(all_car_info)
 
 
-# In[109]:
+# In[66]:
 
 all_car_info = all_car_info.append(scrape_all(search_params={'sort': 'pricedsc'}))
 all_car_info = all_car_info.drop_duplicates()
 print len(all_car_info)
 
 
-# In[110]:
+# In[67]:
 
 all_car_info = all_car_info.append(scrape_all(search_params={'sort': 'priceasc'}))
 all_car_info = all_car_info.drop_duplicates()
 print len(all_car_info)
 
 
-# In[112]:
+# In[68]:
 
 all_car_info = all_car_info.append(scrape_all(search_params={'auto_transmission': 1}))
 all_car_info = all_car_info.drop_duplicates()
 print len(all_car_info)
 
 
-# In[113]:
+# In[69]:
 
-all_car_info['std_location'] = all_car_info.apply(lambda row: re.sub('[^a-z]', '', row['std_location']), axis=1)
 all_car_info.head()
 
 
@@ -198,7 +197,7 @@ import pandas_profiling
 pandas_profiling.ProfileReport(all_car_info)
 
 
-# In[248]:
+# In[19]:
 
 all_car_info.to_csv("all_car_info.csv", encoding='utf-8')
 
@@ -211,7 +210,7 @@ all_car_info.to_csv("all_car_info.csv", encoding='utf-8')
 # 
 # -manual transmission (auto_transmission=1)
 
-# In[249]:
+# In[20]:
 
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -219,19 +218,19 @@ get_ipython().magic(u'matplotlib inline')
 sns.set_style("ticks")
 
 
-# In[250]:
+# In[70]:
 
 all_car_info.plot.scatter('year', 'mileage')
 plt.ylim(0,3E5)
 plt.xlim(1950,)
 
 
-# In[569]:
+# In[71]:
 
 get_ipython().magic(u'store all_car_info')
 
 
-# In[568]:
+# In[72]:
 
 all_car_info.plot.scatter('mileage', 'price')
 plt.xlim(0,3E5)
@@ -241,7 +240,7 @@ plt.ylabel('Price', fontdict={'fontsize': 14})
 plt.title('Car prices vs. Mileage', fontdict={'fontsize': 16})
 
 
-# In[565]:
+# In[73]:
 
 all_car_info.plot.scatter('year', 'price')
 plt.ylim(0,2E5)
@@ -251,12 +250,12 @@ plt.xlabel('Year', fontdict={'fontsize': 14})
 plt.title('Car prices vs. Year', fontdict={'fontsize': 16})
 
 
-# In[147]:
+# In[25]:
 
 print all_car_info[all_car_info['price'] >= 150000]
 
 
-# In[ ]:
+# In[28]:
 
 df = all_car_info
 fig = plt.figure(figsize=(6,4))
@@ -275,34 +274,35 @@ plt.tight_layout()
 plt.savefig('price_year_mileage.pdf')
 
 
-# In[ ]:
+# In[29]:
 
 plt.plot(df['price'], df['mileage'], linestyle='', marker='.')
 
 
-# In[263]:
+# In[81]:
 
 regions = all_car_info[all_car_info['std_location'] != ''].groupby('std_location').agg(['mean', 'count'])
 
 
-# In[264]:
+# In[82]:
 
 regions = regions[regions['price','count'] >= 25]
 regions = regions[regions['mileage','count'] >= 5]
 
 
-# In[265]:
+# In[89]:
 
+regions =regions.drop('arlin')
 regions.head()
 
 
-# In[579]:
+# In[90]:
 
 #regions = regions.drop('price_mileage_ratio', axis=1)
 get_ipython().magic(u'store regions')
 
 
-# In[549]:
+# In[91]:
 
 regions.sort_values(by=[('price', 'mean')], inplace=True)
 ax = regions['price','mean'].plot.bar(position=0, width=0.3, alpha=0.8, legend=True)
@@ -320,12 +320,12 @@ fig.set_size_inches(10,4)
 fig.savefig('price_mileage_region.pdf', bbox_inches='tight')
 
 
-# In[ ]:
+# In[43]:
 
 from scipy.stats import linregress
 
 
-# In[ ]:
+# In[44]:
 
 print linregress(df['mileage'][~df['price'].isnull()].dropna(), df['price'][~df['mileage'].isnull()].dropna())
 print linregress(df['year'][~df['price'].isnull()].dropna(), df['price'][~df['year'].isnull()].dropna())
@@ -377,7 +377,7 @@ focus_data = focus_data.drop_duplicates()
 print len(focus_data)
 
 
-# In[287]:
+# In[47]:
 
 focus_data = focus_data.append(scrape_all(search_params={'auto_make_model': 'ford focus', 'sort': 'priceasc'}))
 print len(focus_data)
@@ -385,7 +385,7 @@ focus_data = focus_data.drop_duplicates()
 print len(focus_data)
 
 
-# In[288]:
+# In[48]:
 
 focus_data = focus_data.append(scrape_all(search_params={'auto_make_model': 'ford focus', 'sort': 'pricedsc'}))
 print len(focus_data)
@@ -393,7 +393,7 @@ focus_data = focus_data.drop_duplicates()
 print len(focus_data)
 
 
-# In[289]:
+# In[49]:
 
 focus_data = focus_data.append(scrape_all(search_params={'auto_make_model': 'ford focus', 'auto_transmission': 1}))
 print len(focus_data)
@@ -401,39 +401,39 @@ focus_data = focus_data.drop_duplicates()
 print len(focus_data)
 
 
-# In[290]:
+# In[50]:
 
 focus_data
 
 
-# In[291]:
+# In[51]:
 
 focus_years = focus_data.groupby('year').agg(['mean', 'count'])
 focus_years
 
 
-# In[293]:
+# In[52]:
 
 focus_data[focus_data['year']==2016]
 
 
-# In[432]:
+# In[53]:
 
 get_ipython().magic(u'store -r ford_focus_years')
 
 
-# In[433]:
+# In[54]:
 
 focus_years = focus_years.join(ford_focus_years)
 focus_years
 
 
-# In[574]:
+# In[55]:
 
 get_ipython().magic(u'store focus_years')
 
 
-# In[522]:
+# In[56]:
 
 get_ipython().magic(u'matplotlib inline')
 focus_years = focus_years.replace(0, np.nan)
@@ -449,29 +449,29 @@ fig.set_size_inches(9,6)
 fig.savefig('compare_prices.pdf', bbox_inches='tight')
 
 
-# In[457]:
+# In[ ]:
 
 focus_data[focus_data['year']==2016]
 
 
-# In[459]:
+# In[ ]:
 
 focus_data[focus_data['year']==2014]
 
 
-# In[575]:
+# In[57]:
 
 get_ipython().magic(u'store focus_data')
 
 
-# In[356]:
+# In[58]:
 
 from sklearn import linear_model
 from sklearn.cross_validation import cross_val_score
 from sklearn.model_selection import ShuffleSplit, train_test_split
 
 
-# In[383]:
+# In[100]:
 
 data = all_car_info[['year', 'mileage', 'price']].dropna()
 data = data[data['price'] < 100000]
@@ -482,7 +482,7 @@ X = data[['year', 'mileage']]
 y = data['price']
 
 
-# In[398]:
+# In[182]:
 
 coeff = []
 scores = []
@@ -495,13 +495,15 @@ for i in range(10):
 print "Average score = {0} +/- {1}".format(round(np.mean(scores),3), round(np.std(scores),3))
 
 
-# In[410]:
-# In[573]:
+# In[183]:
 
 get_ipython().magic(u'store X_test')
 get_ipython().magic(u'store y_test')
 get_ipython().magic(u'store model')
 get_ipython().magic(u'store scores')
+
+
+# In[184]:
 
 fig = plt.figure(figsize=(9,6))
 plt.scatter(y_test, model.predict(X_test), label="predicted")
@@ -515,7 +517,7 @@ plt.tight_layout()
 fig.savefig('regression.pdf')
 
 
-# In[402]:
+# In[185]:
 
 print model.coef_
 
