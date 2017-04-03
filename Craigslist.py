@@ -125,12 +125,12 @@ def get_price(price):
         return np.nan
 
 
-# In[64]:
+# In[16]:
 
 def scrape_all(search_params={}):
     listings = []
     base = "http://boston.craigslist.org/search/cto"
-    for i in range(0, 1000, 100):
+    for i in range(0, 2000, 100):
         search_params['s'] = i
         resp = requests.get(base, params=search_params, timeout=3)
         resp.raise_for_status()
@@ -140,7 +140,7 @@ def scrape_all(search_params={}):
         car_results = resp.content, resp.encoding
         doc = parse(car_results[0])
         listings.extend(extract_listings(doc))
-        time.sleep(2)
+        time.sleep(3)
     
     df = pd.DataFrame(data=listings)
     
