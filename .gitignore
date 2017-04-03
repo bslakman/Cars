@@ -1,3 +1,7 @@
 *.txt
 .ipynb_checkpoints
 cars.html
+*.html
+Craigslist.ipynb
+Edmunds.ipynb
+Fuel\ Economy.ipynb
