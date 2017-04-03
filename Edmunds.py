@@ -9,6 +9,7 @@
 
 import requests
 import json
+import pandas as pd
 
 
 # ## Get all the data on car makes
@@ -25,7 +26,6 @@ data = response.json()
 
 # In[74]:
 
-import pandas as pd
 car_makes = pd.DataFrame(data=data['makes'])
 car_makes.set_index('id', inplace=True)
 print len(car_makes)
@@ -147,6 +147,78 @@ ford_focus_years
 # In[172]:
 
 get_ipython().magic(u'store ford_focus_years')
+
+
+from ediblepickle import checkpoint
+import os.path
+import time
+
+cache_dir = 'cache'
+if not os.path.exists(cache_dir):
+    os.mkdir(cache_dir)
+    
+@checkpoint(key=lambda args, kwargs: "-".join(args) + '.p', work_dir=cache_dir)
+def get_styles(make, model, year):
+    parameters = {'api_key': key, 'fmt': 'json'}
+    styles = requests.get("https://api.edmunds.com/api/vehicle/v2/{0}/{1}/{2}/styles".format(make,model,year), params=parameters)
+    time.sleep(2)
+    return styles.json()
+
+@checkpoint(key=lambda args, kwargs: "-".join(args[:4]) + '.p', work_dir=cache_dir)
+def get_typical_data(make, model, year, zip_code, styles):
+    try:
+        possible_styles = [style for style in styles['styles'] if '4dr sedan' in style['name'].lower()]
+    except:
+        print styles
+        return None
+    try:
+        styleid = possible_styles[0]['id']
+    except: 
+        print make, model, year
+        return None
+    parameters = {'styleid': styleid, 'zip': zip_code, 'fmt' : 'json', 'api_key': key}
+    typical_data = requests.get("https://api.edmunds.com/v1/api/tmv/tmvservice/calculatetypicallyequippedusedtmv", params=parameters).json()
+    time.sleep(2)
+    return typical_data
+
+def extract_typical_data(make, model, year, zip_code):
+    typical_data = get_typical_data(make, model, year, zip_code, get_styles(make, model, year))
+    typical_data_tmv = typical_data['tmv']
+    data_dict = {'used_private_party': typical_data_tmv['totalWithOptions']['usedPrivateParty'],
+                'used_tradein': typical_data_tmv['totalWithOptions']['usedTradeIn'],
+                'used_tmv_retail': typical_data_tmv['totalWithOptions']['usedTmvRetail'],
+                'certified': typical_data_tmv['certifiedUsedPrice']}
+    return data_dict
+car_makes = pd.read_csv('car_makes.csv').set_index('niceName')
+extract_typical_data('hyundai', 'accent', '1997', '02143')
+years = ['1997', '2006', '2015']
+make_model = [('hyundai', 'accent'),('ford', 'taurus'),('mercedes-benz', 'e-class')]
+pricing_data = {}
+
+for make, model in make_model:
+    for year in years:
+        pricing_data[(make, model, year)] = extract_typical_data(make, model, year, '02143')
+
+pricing_df = pd.DataFrame(data=pricing_data)
+pricing_df = pricing_df.transpose()
+pricing_df['retail_markup'] = pricing_df.apply(
+    lambda row: (row['used_tmv_retail']-row['used_tradein']), axis=1)
+
+pricing_df['retail_markup_pct'] = pricing_df.apply(
+    lambda row: 100.0 * (row['used_tmv_retail']-row['used_tradein']) / row['used_tradein'], axis=1)
+
+pricing_df['certified_markup_pct'] = pricing_df.apply(
+    lambda row: 100.0 * (row['certified']-row['used_tradein']) / row['used_tradein'], axis=1)
+
+
+# In[16]:
+
+pricing_df
+
+
+# In[102]:
+
+get_ipython().magic(u'store pricing_df')
 
 
 # In[ ]:
