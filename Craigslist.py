@@ -555,5 +555,39 @@ show(p)
 
 # In[ ]:
 
+from ediblepickle import checkpoint
+import os.path
+import time
+import sys
+import re
+
+sys.setrecursionlimit(5000)
+
+cache_dir = 'cache'
+if not os.path.exists(cache_dir):
+    os.mkdir(cache_dir)
+
+@checkpoint(key=lambda args, kwargs: "-".join(args[0].split('.')[0].split('/')[-3:]) + '.p', work_dir=cache_dir)
+def get_page_text(path):
+    response = requests.get('https://boston.craigslist.org' + path)
+    time.sleep(3)
+    return response.text
+
+attr_list= []
+for link in all_car_info['link']:
+    attributes = {'link' : link}
+    soup = BeautifulSoup(get_page_text(link), "lxml")
+    map_and_attr = soup.select("div.mapAndAttrs > p.attrgroup")
+    try:
+        attributes['year_make_model'] = map_and_attr[0].select("span > b")[0].get_text()
+    except:
+        pass
+    try:
+        listing_attrs = map_and_attr[1]
+        for item in listing_attrs(text=re.compile('.+:')):
+            attributes[item.split(':')[0]] = item.parent.select('b')[0].get_text()
+    except:
+        pass
+    attr_list.append(attributes)
 
 
