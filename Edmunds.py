@@ -10,6 +10,11 @@
 import requests
 import json
 import pandas as pd
+import numpy as np
+import re
+get_ipython().magic(u'matplotlib inline')
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 # ## Get all the data on car makes
@@ -184,6 +189,10 @@ def get_typical_data(make, model, year, zip_code, styles):
 def extract_typical_data(make, model, year, zip_code):
     typical_data = get_typical_data(make, model, year, zip_code, get_styles(make, model, year))
     typical_data_tmv = typical_data['tmv']
+    try:
+        typical_data_tmv = typical_data['tmv']
+    except:
+        print make, model, year
     data_dict = {'used_private_party': typical_data_tmv['totalWithOptions']['usedPrivateParty'],
                 'used_tradein': typical_data_tmv['totalWithOptions']['usedTradeIn'],
                 'used_tmv_retail': typical_data_tmv['totalWithOptions']['usedTmvRetail'],
@@ -219,6 +228,32 @@ pricing_df
 # In[102]:
 
 get_ipython().magic(u'store pricing_df')
+
+
+
+get_ipython().magic(u'matplotlib inline')
+import seaborn as sns
+get_ipython().magic(u'store -r pricing_df')
+
+color_dict = {'hyundai': sns.color_palette()[0], 'ford': sns.color_palette()[1], 'mercedes-benz': sns.color_palette()[2]}
+fill_dict = {'1997': 'x', '2006': '+', '2015': '.'}
+pricing_df['certified_markup_pct'] = pricing_df.apply(lambda row: row['certified_markup_pct'] if row['certified_markup_pct'] > 0 else np.nan, axis=1)
+fig.add_subplot(1,2,1)
+ax1 = pricing_df.set_index('used_private_party', append=True).sort_index(level=(2,3,1)).reset_index(
+    level=3, drop=True).plot.bar(y=['retail_markup_pct', 'certified_markup_pct'], width=0.75)
+plt.ylabel('Markup (% of TMV)')
+L=plt.legend()
+L.get_texts()[0].set_text('Retail')
+L.get_texts()[1].set_text('Certified Pre-Owned')
+fig.add_subplot(1,2,2)
+ax2 = pricing_df.set_index('used_private_party', append=True).sort_index(
+    level=(2,3,1)).reset_index(level=3, drop=True).plot.bar(y=['retail_markup'], width=0.75, legend=None)
+plt.ylabel('Markup ($)')
+#L2=plt.legend()
+#L2.get_texts()[0].set_text('Retail')
+for patch, hatch, color in zip(ax2.containers[0], [fill_dict[i[2]] for i in pricing_df.index], [color_dict[j[0]] for j in pricing_df.index]):
+    patch.set_hatch(hatch)
+    patch.set_color(color)
 
 
 # In[ ]:
