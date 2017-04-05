@@ -591,3 +591,14 @@ for link in all_car_info['link']:
     attr_list.append(attributes)
 
 
+len(attr_list)
+get_ipython().magic(u'store attr_list')
+
+attr_df = pd.DataFrame(data=attr_list)
+attr_df.set_index('link', inplace=True)
+get_ipython().magic(u'store attr_df')
+attr_df[3:8]
+
+attr_df.columns
+all_car_info = pd.merge(all_car_info, attr_df, on='link')
+all_car_info.groupby(['transmission', 'fuel', 'drive', 'cylinders']).agg('count')
