@@ -1,11 +1,12 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[2]:
 
 import requests
 from bs4 import BeautifulSoup
 import time
+import pandas as pd
 
 
 # In[2]:
@@ -250,35 +251,6 @@ plt.xlabel('Year', fontdict={'fontsize': 14})
 plt.title('Car prices vs. Year', fontdict={'fontsize': 16})
 
 
-# In[25]:
-
-print all_car_info[all_car_info['price'] >= 150000]
-
-
-# In[28]:
-
-df = all_car_info
-fig = plt.figure(figsize=(6,4))
-ax1 = fig.add_subplot(111)
-ax1.set_xlabel('Year')
-ax1.set_ylabel('Price($)')
-ax1.set_title('Price vs Mileage and Year for Used Honda Civics, 2000-2016', y= 1.2)
-plt.plot(df['year'], df['price'], '.', ms=10, label='year')
-ax1.set_xbound(lower=1999, upper=2017)
-ax1.legend(loc='best')
-ax2 = ax1.twiny()
-ax2.set_xlabel('Mileage')
-plt.plot(df['mileage'], df['price'], 'g*', ms=10, label='mileage')
-ax2.legend(loc=2)
-plt.tight_layout()
-plt.savefig('price_year_mileage.pdf')
-
-
-# In[29]:
-
-plt.plot(df['price'], df['mileage'], linestyle='', marker='.')
-
-
 # In[81]:
 
 regions = all_car_info[all_car_info['std_location'] != ''].groupby('std_location').agg(['mean', 'count'])
@@ -403,7 +375,6 @@ print len(focus_data)
 
 # In[50]:
 
-focus_data
 
 
 # In[51]:
@@ -414,7 +385,6 @@ focus_years
 
 # In[52]:
 
-focus_data[focus_data['year']==2016]
 
 
 # In[53]:
@@ -451,12 +421,10 @@ fig.savefig('compare_prices.pdf', bbox_inches='tight')
 
 # In[ ]:
 
-focus_data[focus_data['year']==2016]
 
 
 # In[ ]:
 
-focus_data[focus_data['year']==2014]
 
 
 # In[57]:
@@ -554,6 +522,8 @@ show(p)
 
 
 # In[ ]:
+all_car_info = pd.read_csv('all_car_info.csv')
+all_car_info.head()
 
 from ediblepickle import checkpoint
 import os.path
@@ -599,6 +569,4 @@ attr_df.set_index('link', inplace=True)
 get_ipython().magic(u'store attr_df')
 attr_df[3:8]
 
-attr_df.columns
 all_car_info = pd.merge(all_car_info, attr_df, on='link')
-all_car_info.groupby(['transmission', 'fuel', 'drive', 'cylinders']).agg('count')
