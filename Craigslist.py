@@ -562,10 +562,43 @@ for link in all_car_info['link']:
 
 
 len(attr_list)
+# ### Fix the attr_list  
+# Odometer reading needs to be a float, 1-3 digit reading is probably by the thousand
 get_ipython().magic(u'store attr_list')
+
+def fix_odometer(reading):
+    if type(reading) == str:
+        if len(reading) <= 3:
+            reading += '000'
+    return float(reading)
+
+
+def get_make_model(year_make_model):
+    if type(year_make_model) != float:
+        make_model = re.split('[0-9]+[0-9\s]+', year_make_model)[1]
+        make_model_length = len(make_model.split())
+        if make_model_length == 0:
+            make = ''
+            model = ''
+        else:
+            make = make_model.split()[0].lower()
+            if make_model_length == 1:
+                model = ''
+            elif make_model_length == 2:
+                model = make_model.split()[1].lower()
+            else:
+                model = " ".join([i.lower() for i in make_model.split()[1:3]])
+        return make, model
+    else:
+        return '', ''
 
 attr_df = pd.DataFrame(data=attr_list)
 attr_df.set_index('link', inplace=True)
+attr_df['odometer'] = attr_df.apply(lambda row: fix_odometer(row['odometer']), axis=1)
+attr_df['make'] = attr_df.apply(lambda row: get_make_model(row['year_make_model'])[0], axis=1)
+attr_df['model'] = attr_df.apply(lambda row: get_make_model(row['year_make_model'])[1], axis=1)
+
+
 get_ipython().magic(u'store attr_df')
 attr_df[3:8]
 
