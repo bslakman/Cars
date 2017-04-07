@@ -601,5 +601,127 @@ attr_df['model'] = attr_df.apply(lambda row: get_make_model(row['year_make_model
 
 get_ipython().magic(u'store attr_df')
 attr_df[3:8]
+all_cars_combined = pd.merge(all_car_info, attr_df, on='link')
 
 all_car_info = pd.merge(all_car_info, attr_df, on='link')
+# ## Model building
+X_df = all_cars_combined[(all_cars_combined['price'] < 500000) & (all_cars_combined['price'] > 400)].dropna(subset=['price'])[['mileage', 'region', 'year', 'std_location', 'condition', 'cylinders', 'drive', 'fuel', 'odometer', 'paint color', 'size', 'title status', 'type', 'make', 'model']]
+X = X_df.fillna(0).to_dict('records') # maybe not the best way to do it
+from sklearn import feature_extraction
+import numpy as np
+from sklearn.linear_model import LinearRegression, Lasso
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import GridSearchCV, cross_val_score, KFold
+
+v = feature_extraction.DictVectorizer()
+import numpy as np
+y = np.array(all_cars_combined[(all_cars_combined['price'] < 500000) & (all_cars_combined['price'] > 400)]['price'].dropna())
+pipe = Pipeline([
+    ('dictvectorizer', feature_extraction.DictVectorizer()),
+    ('lassoreg', Lasso(max_iter=2000))
+])
+
+pipe.fit(X, y)
+pipe.score(X, y)
+cv_test_error = -cross_val_score(
+        pipe,
+        X,
+        y,
+        cv=KFold(n_splits=5, shuffle=True, random_state=9),
+        scoring='neg_mean_squared_error'
+    )
+
+import math
+print [math.sqrt(i/len(X)) for i in cv_test_error]
+# ## Fit residuals
+from sklearn import base
+from sklearn import neighbors
+class EnsembleTransformer(base.BaseEstimator, base.TransformerMixin):
+    
+    def __init__(self, base_estimator, residual_estimator):
+        self.base_estimator = base_estimator
+        self.residual_estimator = residual_estimator
+    
+    def fit(self, X, y):
+        self.base_estimator.fit(X, y)
+        y_err = y - self.base_estimator.predict(X)
+        self.residual_estimator.fit(X, y_err)
+        return self
+    
+    def transform(self, X):
+        all_ests = [self.base_estimator, self.residual_estimator]
+        return np.array([est.predict(X) for est in all_ests]).T
+
+ensemble_pipe = Pipeline([
+    ('dictvectorizer', feature_extraction.DictVectorizer()),
+    ('ensemble', EnsembleTransformer(
+                Lasso(),
+                neighbors.KNeighborsRegressor(n_neighbors=5))),
+        ('blend', LinearRegression())
+    ])
+
+ensemble_pipe.fit(X, y)
+print ensemble_pipe.score(X,y)
+
+cv_test_error = -cross_val_score(
+        ensemble_pipe,
+        X,
+        y,
+        cv=KFold(n_splits=5, shuffle=True, random_state=19),
+        scoring='neg_mean_squared_error'
+    )
+
+# ## Try a grid search on hyperparameters.
+gs = GridSearchCV(
+    ensemble_pipe,
+    {
+    "ensemble__residual_estimator__n_neighbors": range(10, 60, 10),
+    "ensemble__base_estimator__alpha": range(0,10)},
+    cv=KFold(n_splits=5, shuffle=True, random_state=9),
+    scoring='neg_mean_squared_error'
+)
+
+
+# In[ ]:
+
+gs.fit(X,y)
+
+
+# In[440]:
+
+print gs.best_params_
+print gs.score(X, y)
+
+
+# In[441]:
+
+math.sqrt(-gs.best_score_/len(X))
+
+
+# In[442]:
+
+print zip(y, gs.predict(X))
+
+
+# In[443]:
+
+get_ipython().magic(u'matplotlib inline')
+import matplotlib.pyplot as plt
+plt.plot(y, gs.predict(X), linestyle='', marker='.')
+plt.xlim(-10000,100000)
+plt.ylim(-10000,100000)
+
+
+# In[ ]:
+
+sorted(v.vocabulary_)
+
+
+# ### Ideas to try
+# * Lasso
+# * Get rid of std_location
+
+# In[ ]:
+
+
+
